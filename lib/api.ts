@@ -21,12 +21,24 @@ export async function apiClient<T>(
     }
   }
 
-  const response = await fetch(`${CONFIG.API_BASE_URL}${endpoint}`, {
+  const baseUrl = CONFIG.API_BASE_URL || "http://2.3.1.19:5000";
+
+  const response = await fetch(`${baseUrl}${endpoint}`, {
     headers: { ...defaultHeaders, ...headers },
     ...restOptions,
   });
 
-  const data = await response.json();
+  const contentType = response.headers.get("content-type");
+  let data: any;
+
+  if (contentType && contentType.includes("application/json")) {
+    data = await response.json();
+  } else {
+    throw new Error(
+      `Cannot connect to Backend API. Check if server on port 5000 is running. (Status: ${response.status})`
+    );
+  }
+
   if (!response.ok) {
     const errorMessage = Array.isArray(data.message)
       ? data.message.join(", ")
