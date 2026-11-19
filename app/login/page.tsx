@@ -45,7 +45,8 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       });
 
-      setTokens(data.accessToken, data.refreshToken);
+      const token = (data as any).token || data.accessToken;
+setTokens(token, data.refreshToken || "");
       router.push(CONFIG.ROUTES.DASHBOARD);
     } catch (err: any) {
       setError(err.message);
