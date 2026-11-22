@@ -1,5 +1,6 @@
 export const CONFIG = {
-  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://midterm-backend-1-84fv.onrender.com",
+  API_BASE_URL:
+    process.env.NEXT_PUBLIC_API_BASE_URL || "https://midterm-backend-1-84fv.onrender.com",
   STORAGE_KEYS: {
     ACCESS_TOKEN: "accessToken",
     REFRESH_TOKEN: "refreshToken",
@@ -9,5 +10,10 @@ export const CONFIG = {
     LOGIN: "/login",
     REGISTER: "/register",
     DASHBOARD: "/dashboard",
+  },
+  ENDPOINTS: {
+    LOGIN: "/api/auth/login",
+    REGISTER: "/api/auth/register",
+    STUDENTS: "/students",
   },
 } as const;
